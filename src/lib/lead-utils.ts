@@ -626,7 +626,7 @@ function buildGroupMetrics(leads: Lead[]) {
   const stageValue = (lead: Lead) => cleanLooseText(lead.stageName).toLowerCase();
 
   const converted = leads.filter(isSalesConvertedLead).length;
-  const trialsCompleted = leads.filter((lead) => /trial completed|trial done|trial finished/.test(stageValue(lead))).length;
+  const trialsCompleted = leads.filter((lead) => !isSalesConvertedLead(lead) && /trial completed|trial done|trial finished/.test(stageValue(lead))).length;
   const trialsScheduled = leads.filter((lead) => /trial scheduled/.test(stageValue(lead))).length;
   const disqualified = leads.filter((lead) => DISQUALIFIED_STAGE_VALUES.has(stageValue(lead))).length;
 
